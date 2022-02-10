@@ -76,7 +76,7 @@ export default {
     <button v-on:click="createMovie()">Create Movie</button>
     <h1>All Movies</h1>
     <div v-for="movie in movies" v-bind:key="movie.id">
-      <h2>Title: {{ movie.title }}</h2>
+      <h1>Title {{ movie.title }}</h1>
       <img v-bind:src="movie.imageUrl" alt="" />
       <button v-on:click="movieShow(movie)">More Info</button>
     </div>
@@ -114,15 +114,14 @@ export default {
           Image Url:
           <input type="text" v-model="editMovieParams.imageUrl" />
         </p>
-        <button v-on:click="movieUpdate()">Update</button>
+        <h1>Update Movie</h1>
+        <button v-on:click="movieUpdate(currentMovie)">Update Movie</button>
+        <h1>Delete Movie</h1>
+        <button v-on:click="movieDelete(currentMovie)">Delete Movie</button>
         <button>Close</button>
       </form>
     </dialog>
     <button v-on:click="indexMovies()">Load Movies</button>
-    <h1>Update Movie</h1>
-    <button v-on:click="movieUpdate(currentMovie)">Update Movie</button>
-    <h1>Delete Movie</h1>
-    <button v-on:click="movieDelete(currentMovie)">Delete Movie</button>
   </div>
 </template>
 <style></style>
