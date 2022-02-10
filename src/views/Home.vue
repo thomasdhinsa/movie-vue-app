@@ -5,6 +5,8 @@ export default {
     return {
       message: "It's Working!",
       newMovieParams: {},
+      currentMovie: {},
+      editMovieParams: {},
     };
   },
   created: function () {},
@@ -24,19 +26,18 @@ export default {
       });
     },
     movieShow: function (movie) {
-      axios.get("http://localhost:3000/movies").then((response) => {
-        console.log(movie.title);
-        this.movies = response.data;
-      });
+      console.log(movie);
+      this.currentMovie = movie;
+      this.editMovieParams = movie;
+      document.querySelector("movie-details").showModal();
     },
-    movieUpdate: function () {
-      var params = {};
-      axios.patch("http://localhost:3000/movies", params).then((response) => {
+    movieUpdate: function (movie) {
+      axios.patch(`http://localhost:3000/movies/${movie.id}`, movie).then((response) => {
         console.log("Updated", response.data);
       });
     },
-    movieDelete: function () {
-      axios.delete("http://localhost:3000/movies/10").then((response) => {
+    movieDelete: function (movie) {
+      axios.delete(`http://localhost:3000/movies/${movie.id}`, movie).then((response) => {
         console.log("Deleted", response.data);
       });
     },
@@ -75,16 +76,53 @@ export default {
     <button v-on:click="createMovie()">Create Movie</button>
     <h1>All Movies</h1>
     <div v-for="movie in movies" v-bind:key="movie.id">
-      <h1>Title: {{ movie.title }}</h1>
+      <h2>Title: {{ movie.title }}</h2>
       <img v-bind:src="movie.imageUrl" alt="" />
+      <button v-on:click="movieShow(movie)">More Info</button>
     </div>
-    <button v-on:click="indexMovies()">Load Movie</button>
-    <h1>View Movie</h1>
-    <button v-on:click="movieShow(movie)">Load Movie</button>
+    <dialog id="movie-details">
+      <form method="dialog">
+        <h1>Movie Info</h1>
+        <p>Title: {{ currentMovie.title }}</p>
+        <p>Year: {{ currentMovie.year }}</p>
+        <p>Plot: {{ currentMovie.plot }}</p>
+        <p>Director: {{ currentMovie.director }}</p>
+        <p>English: {{ currentMovie.english }}</p>
+        <img src="currentMovie.imageUrl" alt="" />
+        <h2>Edit Movie</h2>
+        <p>
+          Title:
+          <input type="text" v-model="editMovieParams.title" />
+        </p>
+        <p>
+          Year:
+          <input type="integer" v-model="editMovieParams.year" />
+        </p>
+        <p>
+          Plot:
+          <input type="text" v-model="editMovieParams.plot" />
+        </p>
+        <p>
+          Director:
+          <input type="text" v-model="editMovieParams.director" />
+        </p>
+        <p>
+          English:
+          <input type="boolean" v-model="editMovieParams.english" />
+        </p>
+        <p>
+          Image Url:
+          <input type="text" v-model="editMovieParams.imageUrl" />
+        </p>
+        <button v-on:click="movieUpdate()">Update</button>
+        <button>Close</button>
+      </form>
+    </dialog>
+    <button v-on:click="indexMovies()">Load Movies</button>
     <h1>Update Movie</h1>
-    <button v-on:click="movieUpdate()">Update Movie</button>
+    <button v-on:click="movieUpdate(currentMovie)">Update Movie</button>
     <h1>Delete Movie</h1>
-    <button v-on:click="movieDelete()">Delete Movie</button>
+    <button v-on:click="movieDelete(currentMovie)">Delete Movie</button>
   </div>
 </template>
 <style></style>
