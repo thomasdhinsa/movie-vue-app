@@ -4,6 +4,7 @@ export default {
   data: function () {
     return {
       message: "It's Working!",
+      movies: [],
       newMovieParams: {},
       currentMovie: {},
       editMovieParams: {},
