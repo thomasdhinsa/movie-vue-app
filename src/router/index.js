@@ -3,6 +3,10 @@ import Home from "../views/Home.vue";
 import Signup from "../views/Signup.vue";
 import Login from "../views/Login.vue";
 import Logout from "../views/Logout.vue";
+import IndexMovies from "../views/IndexMovies.vue";
+import ShowMovies from "../views/ShowMovies.vue";
+import CreateMovie from "../views/CreateMovie.vue";
+import EditMovie from "../views/EditMovie.vue";
 
 const routes = [
   {
@@ -32,6 +36,26 @@ const routes = [
     path: "/logout",
     name: "logout",
     component: Logout,
+  },
+  {
+    path: "/indexmovies",
+    name: "indexmovies",
+    component: IndexMovies,
+  },
+  {
+    path: "/showmovies",
+    name: "showmovies",
+    component: ShowMovies,
+  },
+  {
+    path: "/createmovie",
+    name: "createmovie",
+    component: CreateMovie,
+  },
+  {
+    path: "/editmovie",
+    name: "editmovie",
+    component: EditMovie,
   },
 ];
 
