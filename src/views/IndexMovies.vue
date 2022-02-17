@@ -23,6 +23,10 @@ export default {
 <template>
   <div class="home">
     <h1>All Movies</h1>
+    <input v-model="titleFilter" list="titles" />
+    <datalist id="titles">
+      <option v-for="movie in movies" v-bind:key="movie.id">{{ movie.title }}</option>
+    </datalist>
     <button v-on:click="indexMovies()">Load Movies</button>
     <div v-for="movie in movies" v-bind:key="movie.id">
       <h1>Title {{ movie.title }}</h1>
