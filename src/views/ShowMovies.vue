@@ -6,7 +6,7 @@ export default {
       movie: {},
     };
   },
-  created: function () {
+  mounted: function () {
     axios.get(`/movies/${this.$route.params.id}`).then((response) => {
       console.log("Movies Show:", response.data);
       this.recipe = response.data;

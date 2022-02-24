@@ -7,7 +7,7 @@ export default {
       errors: [],
     };
   },
-  created: function () {
+  mounted: function () {
     axios.get(`/movies/${this.$route.params.id}`).then((response) => {
       console.log("Movie to edit:", response.data);
       this.movie = response.data;

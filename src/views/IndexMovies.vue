@@ -7,7 +7,7 @@ export default {
       movies: [],
     };
   },
-  created: function () {},
+  mounted: function () {},
   methods: {
     indexMovies: function () {
       console.log("do you see bananaman");

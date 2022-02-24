@@ -8,7 +8,7 @@ export default {
       newMovieParams: {},
     };
   },
-  created: function () {},
+  mounted: function () {},
   methods: {
     createMovie: function () {
       axios.post("http://localhost:3000/movies", this.newMovieParams).then((response) => {
@@ -22,32 +22,35 @@ export default {
 </script>
 
 <template>
+<form action=""></form>
   <div class="home">
     <h1>Create Movie</h1>
     <p>{{ newMovieParams }}</p>
     <div>
-      Title:
+      <form >
+      <label for="Title">Title</label>
       <input type="text" v-model="newMovieParams.title" />
     </div>
     <div>
-      Year:
+      <label for="Year">Year</label>
       <input type="integer" v-model="newMovieParams.year" />
     </div>
     <div>
-      Plot:
+      <label for="Plot">Plot</label>
       <input type="text" v-model="newMovieParams.plot" />
     </div>
     <div>
-      Director:
+      <label for="Director">Director</label>
       <input type="text" v-model="newMovieParams.director" />
     </div>
     <div>
-      English(True/False):
+      <label for="English">English(True/False):</label>
       <input type="boolean" v-model="newMovieParams.english" />
     </div>
     <div>
-      Imageurl:
+      <label for="imageUrl">ImageUrl</label>
       <input type="text" v-model="newMovieParams.imageUrl" />
+      </form>
     </div>
     <button v-on:click="createMovie()">Create Movie</button>
   </div>
