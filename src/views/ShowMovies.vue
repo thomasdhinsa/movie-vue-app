@@ -1,5 +1,6 @@
 <script>
 import axios from "axios";
+
 export default {
   data: function () {
     return {
@@ -13,7 +14,7 @@ export default {
     });
   },
   methods: {
-    destroyRecipe: function () {
+    destroyMovie: function () {
       if (confirm("Are you sure you to delete this?")) {
         axios.delete(`/movies/${this.movie.id}`).then((response) => {
           console.log("Success", response.data);

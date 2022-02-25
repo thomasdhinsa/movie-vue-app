@@ -7,7 +7,12 @@ export default {
       movies: [],
     };
   },
-  mounted: function () {},
+  mounted: function () {
+    axios.get("/movies").then((response) => {
+      console.log("Movies Index:", response.data);
+      this.movies = response.data;
+    });
+  },
   methods: {
     indexMovies: function () {
       console.log("do you see bananaman");
@@ -19,18 +24,25 @@ export default {
   },
 };
 </script>
-
 <template>
-  <div class="home">
-    <h1>All Movies</h1>
-    <input v-model="titleFilter" list="titles" />
-    <datalist id="titles">
-      <option v-for="movie in movies" v-bind:key="movie.id">{{ movie.title }}</option>
-    </datalist>
-    <button v-on:click="indexMovies()">Load Movies</button>
-    <div v-for="movie in movies" v-bind:key="movie.id">
-      <h1>Title {{ movie.title }}</h1>
-      <img v-bind:src="movie.imageUrl" alt="" />
+  <div class="movies-index">
+    <div class="container">
+      <transition-group
+        appear
+        enter-active-class="animate__animated animate__backInLeft"
+        leave-active-class="animate__animated animate__backInRight"
+      >
+        <div class="col" v-for="movie in movies" v-bind:key="movie.id">
+          <div class="card">
+            <img v-bind:src="movie.image" alt="" />
+            <div class="card-body">
+              <h5 class="card-title">{{ movie.title }}</h5>
+              <p class="card-text">{{ movie.description }}</p>
+              <a href="#" class="btn btn-primary">Go somewhere</a>
+            </div>
+          </div>
+        </div>
+      </transition-group>
     </div>
   </div>
 </template>

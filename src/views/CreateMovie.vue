@@ -22,12 +22,11 @@ export default {
 </script>
 
 <template>
-<form action=""></form>
+  <form action=""></form>
   <div class="home">
     <h1>Create Movie</h1>
     <p>{{ newMovieParams }}</p>
     <div>
-      <form >
       <label for="Title">Title</label>
       <input type="text" v-model="newMovieParams.title" />
     </div>
@@ -50,7 +49,6 @@ export default {
     <div>
       <label for="imageUrl">ImageUrl</label>
       <input type="text" v-model="newMovieParams.imageUrl" />
-      </form>
     </div>
     <button v-on:click="createMovie()">Create Movie</button>
   </div>

@@ -10,7 +10,12 @@ export default {
       editMovieParams: {},
     };
   },
-  mounted: function () {},
+  mounted: function () {
+    axios.get("/movies").then((response) => {
+      console.log("Movies Index:", response.data);
+      this.movies = response.data;
+    });
+  },
   methods: {
     indexMovies: function () {
       console.log("do you see bananaman");
@@ -19,18 +24,11 @@ export default {
         this.movies = response.data;
       });
     },
-    createMovie: function () {
-      axios.post("http://localhost:3000/movies", this.newMovieParams).then((response) => {
-        console.log("Created!", response.data);
-        this.movies.push(response.data);
-        this.newMovieParams = {};
+    movieShow: function () {
+      axios.get(`/movies/${this.$route.params.id}`).then((response) => {
+        console.log("Movies Show:", response.data);
+        this.movie = response.data;
       });
-    },
-    movieShow: function (movie) {
-      console.log(movie);
-      this.currentMovie = movie;
-      this.editMovieParams = movie;
-      document.querySelector("movie-details").showModal();
     },
     movieUpdate: function (movie) {
       axios.patch(`http://localhost:3000/movies/${movie.id}`, movie).then((response) => {
@@ -48,33 +46,6 @@ export default {
 
 <template>
   <div class="home">
-    <h1>Create Movie</h1>
-    <p>{{ newMovieParams }}</p>
-    <div>
-      Title:
-      <input type="text" v-model="newMovieParams.title" />
-    </div>
-    <div>
-      Year:
-      <input type="integer" v-model="newMovieParams.year" />
-    </div>
-    <div>
-      Plot:
-      <input type="text" v-model="newMovieParams.plot" />
-    </div>
-    <div>
-      Director:
-      <input type="text" v-model="newMovieParams.director" />
-    </div>
-    <div>
-      English(True/False):
-      <input type="boolean" v-model="newMovieParams.english" />
-    </div>
-    <div>
-      Imageurl:
-      <input type="text" v-model="newMovieParams.imageUrl" />
-    </div>
-    <button v-on:click="createMovie()">Create Movie</button>
     <h1>All Movies</h1>
     <div v-for="movie in movies" v-bind:key="movie.id">
       <h1>Title {{ movie.title }}</h1>
